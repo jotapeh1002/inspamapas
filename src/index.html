@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Interativo</title>
+    <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="output.css">
+    <style>
+    </style>
+
+</head>
+
+<body class="bg-gray-400 h-screen">
+    <nav class=" flex items-center justify-start px-1 py-2 shadow-lg bg-gray-800">
+        <div>
+            <img src="/assets/marques.png" width="100px" alt="">
+        </div>
+    </nav>
+
+    <div class="flex px-10 " style="height: 580px;">
+
+        <object class="border-y border-neutral-500 rounded-xl w-full p-4 m-4 shadow-lg" id="meuSVG" type="image/svg+xml"
+            data="mapa-pr.svg"></object>
+
+        <div class="rounded-xl p-4 m-4 shadow-lg flex flex-col  border-y border-neutral-500 ">
+
+            <div class="flex">
+                <div class="flex">
+                    <div class="bg-neutral-200 rounded-xl p-4 m-4 shadow h-32 w-72 flex items-center gap-6 "> <img
+                            src="/assets/ubs.png" width="100px" alt=""> <span id="ubs" class="text-3xl">10</span> </div>
+                    <div class="bg-neutral-200 rounded-xl p-4 m-4 shadow h-32 w-72 flex items-center gap-6 "> <img
+                            src="/assets/habitantes.png" width="100px" alt=""> <span id="popu"
+                            class="text-3xl">10</span> </div>
+                </div>
+            </div>
+
+            <div class="">
+                <div class="justify-start items-start flex-col flex ">
+
+                    <div class="justify-start flex flex-col items-start w-full">
+                        <div class="w-full justify-center ml-5 flex flex-col items-start">
+                            <div id="nomecidade" class="text-gray-800 py-4 text-[40px] text-white font-extrabold ">
+                                <span>nome da
+                                    cidade</span>
+                            </div>
+                            <soan class="text-xl font-bold">Gentico: <span id="gentico"
+                                    class="text-white font-extralight">filho da putagem</span></soan>
+                            <div id="" class=" py-4 text-xl text-red-800"><span
+                                    class="font-extrabold">Secretatio:</span>
+                                <span class="text-white" id="sec">Mario lucio</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-start items-start w-full" style="margin-top: 50px;">
+                            <div class="flex w-full items-center justify-center  gap-3">
+                                <!-- <div class="border-b border-neutral-300 my-9 w-full"></div> -->
+                                <div class="text-gray-800 w-[500px] text-xl ml-5 mb-5" style="margin-bottom: 20px;">
+                                    Entrar em contato</div>
+                                <div class="border-b border-neutral-300 w-full"
+                                    style="margin-left: -150px; margin-bottom: 15px;"></div>
+                            </div>
+
+                            <div class=" ml-5 flex items-center gap-5 justify-start ">
+                                <div
+                                    class="flex border border-transparent hover:border hover:border-gray-300 rounded-xl justify-start items-center pr-5 text-white text-2xl w-56 bg-gray-500 bg-opacity-50">
+                                    <img class="" src="/assets/whats.webp" width="60px" height="140px" alt=""> Whatsapp
+                                </div>
+                                <div
+                                    class="flex border border-transparent hover:border hover:border-gray-300 rounded-xl justify-start items-center pr-5 text-white text-2xl w-56 bg-gray-500 bg-opacity-50">
+                                    <img class="pl-6 pr-5 py-2 " src="/assets/email.webp" width="87px" height="50px"
+                                        alt=""> Email
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+   
+
+    <script>
+        const svgObject = document.getElementById('meuSVG');
+        const resultadoDiv = document.getElementById("nomecidade");
+
+        svgObject.addEventListener('load', function () {
+            const svgDoc = svgObject.contentDocument;
+            const paths = svgDoc.querySelectorAll('path'); // Seleciona todos os elementos <path> no SVG
+            let veri
+            paths.forEach(path => {
+
+
+                fetch('parcerias.json')
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log(data)
+                        data.esus.forEach(events => {
+                            if (events === path.id.trim()) {
+                                path.style.fill = 'rgba(4, 255, 66, 0.336)'
+                                veri = events
+                            }
+                        });
+                    })
+                    .catch((error) => {
+                        console.error('Erro ao buscar dados:', error);
+                    });
+
+
+
+                path.addEventListener('mouseover', () => {
+
+                    path.style.fill = 'red'; // Muda a cor ao passar o mouse
+                    let vida = document.getElementById('nomecidade').textContent = path.id
+
+
+                    // const municipioID = path.id.split('_')[1]; // Extrai o ID do path
+                    // const municipioNome = path.querySelector('title').textContent; // Pega o nome do município
+
+                    fetch('populacao.json')
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log(data)
+                            data.Muni.forEach(events => {
+                                if (events.Municípios === path.id.trim()) {
+                                    document.getElementById('sec').textContent = events.Column4
+                                    document.getElementById('gentico').textContent = events.Column3
+                                    document.getElementById('popu').textContent = events.Column6.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+                                    function gerarNumeroAleatorio(min, max) {
+                                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                                    }
+                                    document.getElementById('ubs').innerText = gerarNumeroAleatorio(2, 25)
+                                }
+                            });
+                        })
+                        .catch((error) => {
+                            console.error('Erro ao buscar dados:', error);
+                        });
+                });
+
+                path.addEventListener('mouseout', () => {
+
+                    path.style.fill = '#fefee9'; // Restaura a cor original ao sair
+
+                });
+            });
+        })
+
+    </script>
+</body>
+
+</html>

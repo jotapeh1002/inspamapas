@@ -1,0 +1,24 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Polygon",
+                "coordinates": [
+                    [
+                        [-74.0, -34.0], 
+                        [-34.0, -34.0],  
+                        [-34.0, 5.0],     
+                        [-74.0, 5.0],    
+                        [-74.0, -34.0]    
+                    ]
+                ]
+            },
+            "properties": {
+                "name": "Área Coberta",
+                "fill": "black"
+            }
+        }
+    ]
+}

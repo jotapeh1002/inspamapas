@@ -7,161 +7,281 @@
     <title>SVG Interativo</title>
     <link rel="stylesheet" href="input.css">
     <link rel="stylesheet" href="output.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-    </style>
+        .suggestions {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            z-index: 10;
+        }
 
+        .suggestion-item {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
 
 <body class="bg-gray-400 h-screen">
-    <nav class=" flex items-center justify-start px-1 py-2 shadow-lg bg-gray-800">
-        <div>
-            <img src="/assets/marques.png" width="100px" alt="">
+
+    <div class="absolute h-screen w-screen hidden" id="exit"></div>
+
+    <!-- NavBar -->
+    <nav class="flex items-center justify-between px-1 py-2 shadow-lg bg-gray-700 w-full">
+        <img src="assets/marques.png" width="150px" alt="">
+        <div class="flex-col flex items-center">
+            <input type="text" class="text-gray-600 outline-none rounded-full h-8 w-60 bg-opacity-30 mx-3 px-4"
+                placeholder="Pesquise sua cidade..." name="search" id="search">
+            <div class="relative flex w-full justify-center mt-1 ">
+                <div id="suggestions" class="suggestions w-60 rounded-b-lg hidden"></div>
+            </div>
         </div>
     </nav>
 
-    <div class="flex px-10 " style="height: 580px;">
-
-        <object class="border-y border-neutral-500 rounded-xl w-full p-4 m-4 shadow-lg" id="meuSVG" type="image/svg+xml"
-            data="mapa-pr.svg"></object>
-
-        <div class="rounded-xl p-4 m-4 shadow-lg flex flex-col  border-y border-neutral-500 ">
-
-            <div class="flex">
-                <div class="flex">
-                    <div class="bg-neutral-200 rounded-xl p-4 m-4 shadow h-32 w-72 flex items-center gap-6 "> <img
-                            src="/assets/ubs.png" width="100px" alt=""> <span id="ubs" class="text-3xl">10</span> </div>
-                    <div class="bg-neutral-200 rounded-xl p-4 m-4 shadow h-32 w-72 flex items-center gap-6 "> <img
-                            src="/assets/habitantes.png" width="100px" alt=""> <span id="popu"
-                            class="text-3xl">10</span> </div>
+    <!-- Cards no topo -->
+    <div class="top-cards h-36 flex justify-between px-14 py-7">
+        <div class="flex flex-col justify-center border-l-8 border-blue-500 rounded-xl p-3 w-72 bg-neutral-300">
+            <div class="flex items-center  pr-3 justify-between">
+                <div> <img class="" src="hospital.webp" width="70px" alt=""></div>
+                <div class="flex flex-col items-end">
+                    <span class="text-gray-500">Total de UBS</span>
+                    <span id="ubs" class=" text-2xl font-bold">2</span>
                 </div>
             </div>
-
-            <div class="">
-                <div class="justify-start items-start flex-col flex ">
-
-                    <div class="justify-start flex flex-col items-start w-full">
-                        <div class="w-full justify-center ml-5 flex flex-col items-start">
-                            <div id="nomecidade" class="text-gray-800 py-4 text-[40px] text-white font-extrabold ">
-                                <span>nome da
-                                    cidade</span>
-                            </div>
-                            <soan class="text-xl font-bold">Gentico: <span id="gentico"
-                                    class="text-white font-extralight">filho da putagem</span></soan>
-                            <div id="" class=" py-4 text-xl text-red-800"><span
-                                    class="font-extrabold">Secretatio:</span>
-                                <span class="text-white" id="sec">Mario lucio</span>
-                            </div>
-                        </div>
-                        <div class="flex flex-col justify-start items-start w-full" style="margin-top: 50px;">
-                            <div class="flex w-full items-center justify-center  gap-3">
-                                <!-- <div class="border-b border-neutral-300 my-9 w-full"></div> -->
-                                <div class="text-gray-800 w-[500px] text-xl ml-5 mb-5" style="margin-bottom: 20px;">
-                                    Entrar em contato</div>
-                                <div class="border-b border-neutral-300 w-full"
-                                    style="margin-left: -150px; margin-bottom: 15px;"></div>
-                            </div>
-
-                            <div class=" ml-5 flex items-center gap-5 justify-start ">
-                                <div
-                                    class="flex border border-transparent hover:border hover:border-gray-300 rounded-xl justify-start items-center pr-5 text-white text-2xl w-56 bg-gray-500 bg-opacity-50">
-                                    <img class="" src="/assets/whats.webp" width="60px" height="140px" alt=""> Whatsapp
-                                </div>
-                                <div
-                                    class="flex border border-transparent hover:border hover:border-gray-300 rounded-xl justify-start items-center pr-5 text-white text-2xl w-56 bg-gray-500 bg-opacity-50">
-                                    <img class="pl-6 pr-5 py-2 " src="/assets/email.webp" width="87px" height="50px"
-                                        alt=""> Email
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
         </div>
-
+        <div class="flex flex-col justify-center border-l-8 border-yellow-600 rounded-xl p-3 w-72 bg-neutral-300">
+            <div class="flex items-center  pr-3 justify-between">
+                <div> <img class="" src="popu.png" width="70px" alt=""></div>
+                <div class="flex flex-col items-end">
+                    <span class="text-gray-500">População</span>
+                    <span id="popu" class=" text-2xl font-bold">2</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center border-l-8 border-yellow-400 rounded-xl p-3 w-72 bg-neutral-300">
+            <div class="flex items-center  pr-3 justify-between">
+                <div> <img class="rounded-full" src="bebe.webp" width="70px" alt=""></div>
+                <div class="flex flex-col items-end">
+                    <span class="text-gray-500">Taxa de Natalidade</span>
+                    <span id="nata" class=" text-2xl font-bold">2</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center border-l-8 border-red-500 rounded-xl p-3 w-72 bg-neutral-300">
+            <div class="flex items-center  pr-3 justify-between">
+                <div> <img class="rounded-full" src="cruz.jpg" width="70px" alt=""></div>
+                <div class="flex flex-col items-end">
+                    <span class="text-gray-500">Taxa de Mortalidade</span>
+                    <span id="mort" class=" text-2xl font-bold">2</span>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col justify-center border-l-8 border-purple-500 rounded-xl p-3 w-72 bg-neutral-300">
+            <div class="flex items-center  pr-3 justify-between">
+                <div> <img class="rounded-full" src="renda.jpg" width="70px" alt=""></div>
+                <div class="flex flex-col items-end">
+                    <span class="text-gray-500">Renda Mensal</span>
+                    <span id="rend" class=" text-2xl font-bold">2</span>
+                </div>
+            </div>
+        </div>
     </div>
 
-   
+    <div class="bg-gray-700 absolute hidden text-blue-400 shadow-md rounded-full px-2 border border-zinc-500"
+        style=" font-size: 13px;" id="popup">Esta é uma mensagem!</div>
+
+    <!-- Contêiner principal -->
+    <div class="flex mx-14 my-10 gap-5">
+        <!-- Mapa SVG -->
+        <div class="overflow-hidden border-y flex flex-col border-slate-500 rounded-xl shadow-lg">
+            <object class="px-10 py-8 h-80 pb-8" id="meuSVG" type="image/svg+xml" data="mapa-pr.svg"></object>
+            <div class="flex  bg-slate-500 justify-between items-center">
+                <p class=" w-full text-2xl pt-2 p-3 font-bold text-slate-300" id="cidade">Limoeiro</p>
+                <div class="mx-4  text-sm w-60 -mb-2 mt-2">
+                    <select id="regiao"
+                        class="text-center bg-transparent text-slate-300 font-bold rounded p-2 mb-4 w-full">
+                        <option value="">Todas as regiões</option>
+                        <option value="metropolitana">Região Metropolitana</option>
+                        <option value="agreste">Agreste</option>
+                        <option value="sertão">Sertão</option>
+                        <option value="zona-da-mata">Zona da Mata</option>
+                        <option value="sertão-do-mato-grosso">Sertão do Mato Grosso</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-col">
+            <div class="border-y w-full border-neutral-500 rounded-xl shadow-lg"> </div>
+        </div>
+    </div>
+
 
     <script>
-        const svgObject = document.getElementById('meuSVG');
-        const resultadoDiv = document.getElementById("nomecidade");
+        let dadosPopulacao;  // Variável global para armazenar os dados do JSON
 
-        svgObject.addEventListener('load', function () {
-            const svgDoc = svgObject.contentDocument;
-            const paths = svgDoc.querySelectorAll('path'); // Seleciona todos os elementos <path> no SVG
-            let veri
+        // Carrega os dados de população antes de interagir com o SVG
+        fetch('populacao.json')
+            .then(response => response.json())
+            .then(data => {
+                dadosPopulacao = data;  // Armazena os dados globalmente para usar mais tarde
+            })
+            .catch(error => console.error('Erro ao carregar o JSON de população:', error));
+
+        document.getElementById('meuSVG').addEventListener('load', function () {
+
+            let passardados = (cidade, populacao) => {
+
+                document.getElementById('cidade').textContent = cidade;
+
+                const renda = Math.floor(Math.random() * (2555 - 1000 + 1)) + 1200;
+                document.getElementById('rend').innerText = renda.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+                const natalidade = Math.floor(Math.random() * (10 - 80 + 1)) + 80;
+                document.getElementById('nata').innerText = natalidade + '%';
+
+                const mortalidade = Math.floor(Math.random() * (10 - 80 + 1)) + 80;
+                document.getElementById('mort').innerText = mortalidade + '%';
+
+                document.getElementById('popu').textContent = populacao.toLocaleString('pt-BR');
+
+                const ubsAleatorio = Math.floor(Math.random() * (25 - 10 + 1)) + 10;
+                document.getElementById('ubs').innerText = ubsAleatorio;
+            }
+
+            const svgDoc = this.contentDocument;
+            const paths = svgDoc.querySelectorAll('path');
+            let search = document.getElementById('search')
+            let value = ''
+
+            const popup = document.getElementById('popup');
+
+            const suggestions = []
             paths.forEach(path => {
+                suggestions.push(path.id); // Adiciona o ID ao array
+            });
 
+            const suggestionsContainer = document.getElementById('suggestions');
 
-                fetch('parcerias.json')
-                    .then((response) => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data)
-                        data.esus.forEach(events => {
-                            if (events === path.id.trim()) {
-                                path.style.fill = 'rgba(4, 255, 66, 0.336)'
-                                veri = events
-                            }
-                        });
-                    })
-                    .catch((error) => {
-                        console.error('Erro ao buscar dados:', error);
-                    });
+            let exibirpesquisa = () => {
+                search.classList.remove('rounded-full'); // Mostra sugestões
+                search.classList.add('rounded-t-xl'); // Mostra sugestões
+                document.getElementById('suggestions').classList.remove('hidden')
+                document.getElementById('exit').classList.remove('hidden')
+            }
 
+            let removerpesquisa = () => {
+                search.classList.add('rounded-full'); // Mostra sugestões
+                search.classList.remove('rounded-t-xl'); // Mostra sugestões
+                document.getElementById('exit').classList.add('hidden')
+                document.getElementById('suggestions').classList.add('hidden')
+            }
 
+            paths.forEach(path => {
+                search.addEventListener('input', () => {
 
-                path.addEventListener('mouseover', () => {
+                    if(search.value < 1){
+                        removerpesquisa()
+                    }
 
-                    path.style.fill = 'red'; // Muda a cor ao passar o mouse
-                    let vida = document.getElementById('nomecidade').textContent = path.id
+                    function removeAcentos(str) {
+                        return str
+                            .normalize('NFD') // Normaliza a string
+                            .replace(/[\u0300-\u036f]/g, '')
+                            .trim()
+                            .toLowerCase() // Remove os caracteres acentuados
+                    }
 
+                    suggestionsContainer.innerHTML = ''; // Limpa sugestões
 
-                    // const municipioID = path.id.split('_')[1]; // Extrai o ID do path
-                    // const municipioNome = path.querySelector('title').textContent; // Pega o nome do município
+                    if (removeAcentos(search.value)) {
+                        const filteredSuggestions = suggestions.filter(s => removeAcentos(s).includes(removeAcentos(search.value)));
+                        filteredSuggestions.forEach(suggestion => {
+                            const item = document.createElement('div');
+                            item.className = 'suggestion-item';
+                            item.textContent = suggestion;
+                            suggestionsContainer.appendChild(item);
+                            item.onclick = () => {
+                                removerpesquisa()
+                                search.value = suggestion.
+                                    trim(); // Define o valor do input
+                                suggestionsContainer.innerHTML = ''; // Limpa sugestõessug
+                                value = suggestion.trim()
+                                // alert(value)
+                                let municipio = dadosPopulacao.Muni.find(m => m.Municípios === value.trim())
+                                // console.log(municipio)
 
-                    fetch('populacao.json')
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            return response.json();
-                        })
-                        .then(data => {
-                            console.log(data)
-                            data.Muni.forEach(events => {
-                                if (events.Municípios === path.id.trim()) {
-                                    document.getElementById('sec').textContent = events.Column4
-                                    document.getElementById('gentico').textContent = events.Column3
-                                    document.getElementById('popu').textContent = events.Column6.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
-                                    function gerarNumeroAleatorio(min, max) {
-                                        return Math.floor(Math.random() * (max - min + 1)) + min;
+                                if (dadosPopulacao) {
+                                    // const municipio = dadosPopulacao.Muni.find(m => m.Municípios === value);
+
+                                    if (municipio) {
+
+                                        passardados(municipio.Municípios, municipio.Column6)
+                                        paths.forEach(path => {
+                                            path.style.fill = '#fefee9';
+                                            if (path.id.trim() === value.trim()) {
+                                                path.style.fill = 'red';
+                                            }
+                                        })
                                     }
-                                    document.getElementById('ubs').innerText = gerarNumeroAleatorio(2, 25)
                                 }
-                            });
-                        })
-                        .catch((error) => {
-                            console.error('Erro ao buscar dados:', error);
+                            };
                         });
+                        if (filteredSuggestions.length > 0) {
+                            suggestionsContainer.classList.remove('hidden'); // Mostra sugestões
+                            exibirpesquisa()
+
+                        } else {
+                            suggestionsContainer.classList.add('hidden'); // Esconde se não houver sugestões
+                            removerpesquisa()
+                        }
+                    }
+                })
+
+                document.getElementById('exit').addEventListener('click', () => {
+                    removerpesquisa()
+                })
+
+                path.addEventListener('click', () => {
+
+                    paths.forEach(path => {
+                        path.style.fill = '#fefee9';
+                    })
+                    path.style.fill = 'red';
+                    //alert(path.id)
+                    let municipio = dadosPopulacao.Muni.find(m => m.Municípios === path.id.trim())
+
+                    passardados(municipio.Municípios, municipio.Column6)
+
+                    search.value = ''
+
+                    // alert(path.id)
+                });
+
+                path.addEventListener('mousemove', (event) => {
+                    // Mostra o popup ao lado do mouse
+                    popup.style.display = 'block';
+                    popup.style.left = event.pageX + 110 + 'px'; // Ajusta a posição horizontal
+                    popup.style.top = event.pageY + 310 + 'px'; // Ajusta a posição vertical
+                    popup.innerText = path.id.trim()
                 });
 
                 path.addEventListener('mouseout', () => {
-
-                    path.style.fill = '#fefee9'; // Restaura a cor original ao sair
-
+                    popup.style.display = 'none';
                 });
             });
-        })
-
+        });
     </script>
+
+    <script src="script.js"></script>
+    <script src="https://kit.fontawesome.com/998c60ef77.js" crossorigin="anonymous"></script>
 </body>
 
 </html>

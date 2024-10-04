@@ -47,7 +47,7 @@
     </nav>
 
     <!-- Cards no topo -->
-    <div class="top-cards h-36 flex justify-between px-14 py-7">
+    <div class="top-cards h-36 flex justify-between px-14 py-7 gap-4">
         <div class="flex flex-col justify-center border-l-8 border-blue-500 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
                 <div> <img class="" src="hospital.webp" width="70px" alt=""></div>
@@ -111,9 +111,8 @@
                         <option value="">Todas as regiões</option>
                         <option value="metropolitana">Região Metropolitana</option>
                         <option value="agreste">Agreste</option>
-                        <option value="sertão">Sertão</option>
-                        <option value="zona-da-mata">Zona da Mata</option>
-                        <option value="sertão-do-mato-grosso">Sertão do Mato Grosso</option>
+                        <option value="sertao">Sertão</option>
+                        <option value="zonadamata">Zona da Mata</option>
                     </select>
                 </div>
             </div>
@@ -168,6 +167,40 @@
                 suggestions.push(path.id); // Adiciona o ID ao array
             });
 
+
+
+
+            const select = document.getElementById("regiao")
+            const valorSelecionado = select.value;
+            select.selectedIndex = 0;
+            let metropolitana = [
+                'Lagoa do Carro',
+                'Recife'
+            ]
+
+            select.addEventListener('click', function () {
+
+                if (select.value == "sertao") {
+
+                    paths.forEach(path => {
+
+                        for (let index = 0; index < metropolitana.length; index++) {
+
+                            if (path.id.trim() === metropolitana[index]) {
+                                path.style.fill = 'red';
+                            }
+                            // alert()
+                        }
+
+                    })
+
+                }
+
+            })
+
+
+
+
             const suggestionsContainer = document.getElementById('suggestions');
 
             let exibirpesquisa = () => {
@@ -187,7 +220,7 @@
             paths.forEach(path => {
                 search.addEventListener('input', () => {
 
-                    if(search.value < 1){
+                    if (search.value < 1) {
                         removerpesquisa()
                     }
 

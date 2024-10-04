@@ -127,7 +127,7 @@
         let dadosPopulacao;  // Variável global para armazenar os dados do JSON
 
         // Carrega os dados de população antes de interagir com o SVG
-        fetch('populacao.json')
+        fetch('/src/json/populacao.json')
             .then(response => response.json())
             .then(data => {
                 dadosPopulacao = data;  // Armazena os dados globalmente para usar mais tarde
@@ -135,6 +135,7 @@
             .catch(error => console.error('Erro ao carregar o JSON de população:', error));
 
         document.getElementById('meuSVG').addEventListener('load', function () {
+
 
             let passardados = (cidade, populacao) => {
 
@@ -168,32 +169,21 @@
             });
 
 
-
-
             const select = document.getElementById("regiao")
             const valorSelecionado = select.value;
             select.selectedIndex = 0;
+
+
             let metropolitana = [
-                'Lagoa do Carro',
-                'Recife'
+
             ]
 
             select.addEventListener('click', function () {
 
                 if (select.value == "sertao") {
 
-                    paths.forEach(path => {
-
-                        for (let index = 0; index < metropolitana.length; index++) {
-
-                            if (path.id.trim() === metropolitana[index]) {
-                                path.style.fill = 'red';
-                            }
-                            // alert()
-                        }
-
-                    })
-
+                    // if(true){ //mude isso e coloqe os codigos
+                    // }
                 }
 
             })

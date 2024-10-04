@@ -5,9 +5,6 @@
       "Column2": 2600054,
       "Column3": "abreu-limense",
       "Column4": "FLÁVIO VIEIRA GADELHA DE ALBUQUERQUE",
-
-      "regiao": "metropolitana",
-      
       "Column5": 126.384,
       "Column6": 98462,
       "Column7": 779.07,
@@ -19,7 +16,7 @@
       "Column13": 17123.06
      },
      {
-      "Municípios": "Afogados da Ingazeira",
+      "Municípios": "Afogados da Ingazeira", 
       "Column2": 2600104,
       "Column3": "afogadense",
       "Column4": "ALESANDRO PALMEIRA DE VASCONCELOS LEITE",

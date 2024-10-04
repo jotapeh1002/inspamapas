@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SVG Interativo</title>
-    <link rel="stylesheet" href="input.css">
-    <link rel="stylesheet" href="output.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/src/css/input.css">
+    <link rel="stylesheet" href="/src/css/output.css">
+    <link rel="stylesheet" href="/src/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .suggestions {
@@ -36,7 +36,7 @@
 
     <!-- NavBar -->
     <nav class="flex items-center justify-between px-1 py-2 shadow-lg bg-gray-700 w-full">
-        <img src="assets/marques.png" width="150px" alt="">
+        <img src="/src/assets/marques.png" width="150px" alt="">
         <div class="flex-col flex items-center">
             <input type="text" class="text-gray-600 outline-none rounded-full h-8 w-60 bg-opacity-30 mx-3 px-4"
                 placeholder="Pesquise sua cidade..." name="search" id="search">
@@ -50,7 +50,7 @@
     <div class="top-cards h-36 flex justify-between px-14 py-7 gap-4">
         <div class="flex flex-col justify-center border-l-8 border-blue-500 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
-                <div> <img class="" src="hospital.webp" width="70px" alt=""></div>
+                <div> <img class="" src="/src/assets/hospital.webp" width="70px" alt=""></div>
                 <div class="flex flex-col items-end">
                     <span class="text-gray-500">Total de UBS</span>
                     <span id="ubs" class=" text-2xl font-bold">2</span>
@@ -59,7 +59,7 @@
         </div>
         <div class="flex flex-col justify-center border-l-8 border-yellow-600 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
-                <div> <img class="" src="popu.png" width="70px" alt=""></div>
+                <div> <img class="" src="/src/assets/popu.png" width="70px" alt=""></div>
                 <div class="flex flex-col items-end">
                     <span class="text-gray-500">População</span>
                     <span id="popu" class=" text-2xl font-bold">2</span>
@@ -68,7 +68,7 @@
         </div>
         <div class="flex flex-col justify-center border-l-8 border-yellow-400 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
-                <div> <img class="rounded-full" src="bebe.webp" width="70px" alt=""></div>
+                <div> <img class="rounded-full" src="/src/assets/bebe.webp" width="70px" alt=""></div>
                 <div class="flex flex-col items-end">
                     <span class="text-gray-500">Taxa de Natalidade</span>
                     <span id="nata" class=" text-2xl font-bold">2</span>
@@ -77,7 +77,7 @@
         </div>
         <div class="flex flex-col justify-center border-l-8 border-red-500 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
-                <div> <img class="rounded-full" src="cruz.jpg" width="70px" alt=""></div>
+                <div> <img class="rounded-full" src="/src/assets/cruz.jpg" width="70px" alt=""></div>
                 <div class="flex flex-col items-end">
                     <span class="text-gray-500">Taxa de Mortalidade</span>
                     <span id="mort" class=" text-2xl font-bold">2</span>
@@ -86,7 +86,7 @@
         </div>
         <div class="flex flex-col justify-center border-l-8 border-purple-500 rounded-xl p-3 w-72 bg-neutral-300">
             <div class="flex items-center  pr-3 justify-between">
-                <div> <img class="rounded-full" src="renda.jpg" width="70px" alt=""></div>
+                <div> <img class="rounded-full" src="/src/assets/renda.jpg" width="70px" alt=""></div>
                 <div class="flex flex-col items-end">
                     <span class="text-gray-500">Renda Mensal</span>
                     <span id="rend" class=" text-2xl font-bold">2</span>
@@ -102,7 +102,7 @@
     <div class="flex mx-14 my-10 gap-5">
         <!-- Mapa SVG -->
         <div class="overflow-hidden border-y flex flex-col border-slate-500 rounded-xl shadow-lg">
-            <object class="px-10 py-8 h-80 pb-8" id="meuSVG" type="image/svg+xml" data="mapa-pr.svg"></object>
+            <object class="px-10 py-8 h-80 pb-8" id="meuSVG" type="image/svg+xml" data="/src/svg/mapa-pr.svg"></object>
             <div class="flex  bg-slate-500 justify-between items-center">
                 <p class=" w-full text-2xl pt-2 p-3 font-bold text-slate-300" id="cidade">Limoeiro</p>
                 <div class="mx-4  text-sm w-60 -mb-2 mt-2">
